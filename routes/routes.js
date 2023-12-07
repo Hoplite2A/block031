@@ -12,7 +12,7 @@ const ownerQuery = "/v1/pets/owner-query";
 const petName = "/v1/pets/:name";
 
 // GET - / - returns homepage
-Router.get('', (req, res) => {
+Router.get("", (req, res) => {
   // serve up the public folder as static index.html file
   res.send("This is the Home Page");
 });
@@ -61,22 +61,28 @@ Router.get(`${ownerQuery}`, (req, res) => {
 });
 
 Router.param("name", (req, res, next, name) => {
-  res.render("message", {text: "Harry Potter owes us a new broom!"}) 
-})
+  res.render("message", { text: "Harry Potter owes us a new broom!" });
+});
 
 // GET, PUT, DELETE pet details based on name and API Method
-Router.route(`${petName}`).get((req, res) => {
-  // get the name from the request
-  const name = req.params.name;
-  // find the pet in the pets array
-  const pet = pets.find((pet) => pet.name === name);
-  // send the pet as a response
-  res.send(pet);
-}).put((rep, res) => {
-  res.send(console.log(`Updating Pet Record with name of ${req.params.name}`))
-}).delete((req, res) => {
-  res.send(console.log(`Deleting Pet Record with name of ${req.params.name}`))
-})
+Router.route(`${petName}`)
+  .get((req, res) => {
+    // get the name from the request
+    const name = req.params.name;
+    // find the pet in the pets array
+    const pet = pets.find((pet) => pet.name === name);
+    // send the pet as a response
+    res.send(pet);
+  })
+  .put((rep, res) => {
+    res.send(
+      console.log(`Updating Pet Record with name of ${req.params.name}`)
+    );
+  })
+  .delete((req, res) => {
+    res.send(
+      console.log(`Deleting Pet Record with name of ${req.params.name}`)
+    );
+  });
 
-
-module.exports = Router
+module.exports = Router;
